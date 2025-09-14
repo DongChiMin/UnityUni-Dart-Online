@@ -124,10 +124,6 @@ public class Dart : MonoBehaviour
                     break;
             }
         }
-        else
-        {
-            Debug.Log("Nem truot roi");
-        }
 
         ChangeState(DartState.Hit);
     }

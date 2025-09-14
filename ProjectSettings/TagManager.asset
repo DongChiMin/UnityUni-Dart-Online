@@ -10,6 +10,7 @@ TagManager:
   - Treble3x
   - Treble2x
   - Single
+  - Dart
   layers:
   - Default
   - TransparentFX

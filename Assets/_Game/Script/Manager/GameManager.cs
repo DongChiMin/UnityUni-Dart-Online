@@ -12,11 +12,9 @@ public enum GameState
 
 public class GameManager : Singleton<GameManager>
 {
-    DartManager dartManager;
-    Dart currentDart;
+    
     void Start()
     {
-        dartManager = DartManager.Instance;
         OnInit();
     }
 
@@ -25,8 +23,17 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-    // Update is called once per frame
     void Update()
+    {
+
+    }
+
+    public void SetScore()
+    {
+
+    }
+
+    public void SetMulipier()
     {
 
     }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 374604688316599923}
   m_Layer: 0
   m_Name: Dart
-  m_TagString: Untagged
+  m_TagString: Dart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,8 +54,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.01, y: 0.01, z: 0.8}
-  m_Center: {x: 0, y: 0, z: -0.4}
+  m_Size: {x: 0.01, y: 0.01, z: 3}
+  m_Center: {x: 0, y: 0, z: -1.4}
 --- !u!54 &3705240118360345972
 Rigidbody:
   m_ObjectHideFlags: 0
