@@ -20,7 +20,7 @@ public class DartManager : Singleton<DartManager>
     {
         isHit = false;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 40; i++)
         {
             //Tạo phi tiêu đỏ
             Dart dart = Instantiate(redDartPrefab, transform);

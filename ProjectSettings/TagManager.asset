@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - DartBoard
+  - InnerBullEye
+  - OuterBullEye
+  - Treble3x
+  - Treble2x
+  - Single
   layers:
   - Default
   - TransparentFX
@@ -17,9 +22,9 @@ TagManager:
   - 
   - 
   - 
+  - Darts
   - 
-  - 
-  - 
+  - Score
   - 
   - 
   - 
