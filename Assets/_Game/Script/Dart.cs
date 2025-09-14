@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public enum DartState
@@ -100,52 +101,34 @@ public class Dart : MonoBehaviour
         ChangeState(DartState.Flying);
     }
 
-    void CheckScore()
-    {
-        Ray ray = new Ray(transform.position, transform.forward * -1f);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 10f, LayerMask.GetMask("Darts"));
-        if (hit.collider != null)
-        {
-            Debug.Log(hit.collider.gameObject);
-            if (hit.collider.tag == "InnerBullEye")
-            {
-                Debug.Log("50 diem");
-
-            }
-            else if (hit.collider.tag == "OuterBullEye")
-            {
-                Debug.Log("25 diem");
-            }
-            else if (hit.collider.tag == "Treble3x")
-            {
-                Debug.Log("nhan 3 so diem");
-            }
-            else if (hit.collider.tag == "Treble2x")
-            {
-                Debug.Log("Nhan 2 so diem");
-            }
-            else if (hit.collider.tag == "Single")
-            {
-                Debug.Log("Giu nguyen diem");
-            }
-            else
-            {
-                Debug.Log("Nem truot roi");
-            }
-        }
-
-        ray = new Ray(transform.position, transform.forward * -1f);
-        hit = Physics2D.Raycast(ray.origin, ray.direction, 10f, LayerMask.GetMask("Score"));
-        if (hit.collider != null)
-        {
-            Debug.Log("Có điểm r");
-        }
-    }
-
-
     private void OnTriggerEnter(Collider other)
     {
-        CheckScore();
+        if (other.gameObject.layer == LayerMask.NameToLayer("Multiplier"))
+        {
+            switch (other.tag)
+            {
+                case "InnerBullEye":
+                    Debug.Log("50 diem");
+                    break;
+                case "OuterBullEye":
+                    Debug.Log("25 diem");
+                    break;
+                case "Treble3x":
+                    Debug.Log("Nhan 3 so diem");
+                    break;
+                case "Treble2x":
+                    Debug.Log("Nhan 2 so diem");
+                    break;
+                case "Single":
+                    Debug.Log("Giu nguyen diem");
+                    break;
+            }
+        }
+        else
+        {
+            Debug.Log("Nem truot roi");
+        }
+
         ChangeState(DartState.Hit);
     }
 
@@ -163,6 +146,13 @@ public class Dart : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.forward * -10f);
+
+        Vector3 origin = transform.position;
+        Vector3 direction = transform.forward * -1f;  // ❗️KHÔNG nên dùng trong 2D
+
+        float distance = 0.1f;
+        Vector3 end = origin + direction.normalized * distance;
+
+        Gizmos.DrawLine(origin, end);
     }
 }
