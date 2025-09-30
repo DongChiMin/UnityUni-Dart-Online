@@ -52,19 +52,9 @@ public class Dart : MonoBehaviour
     {
         if(dartState == DartState.Flying)
         {
-            ////Hiệu ứng chúi đầu xuống của phi tiêu
-            //float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.z) * Mathf.Rad2Deg;
-            //Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.left);
-
-            //// Giữ nguyên giá trị y của rotation hiện tại
-            //Vector3 currentEuler = transform.rotation.eulerAngles;
-            //transform.rotation = Quaternion.Euler(
-            //    targetRotation.eulerAngles.x,
-            //    currentEuler.y,
-            //    targetRotation.eulerAngles.z
-            //);
             if (rb.velocity != Vector3.zero)
             {
+                //Nhìn về hướng velocity (hướng bay) của phi tiêu để quay dần dần về hướng đó
                 Quaternion targetRotation = Quaternion.LookRotation(rb.velocity.normalized);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
@@ -72,18 +62,10 @@ public class Dart : MonoBehaviour
             //Tăng trọng lực cho phi tiêu chúi xuống nhanh hơn
             rb.AddForce(Vector3.down * gravityForce, ForceMode.Acceleration);
         }
-        else if(dartState == DartState.Hit) {
-            //Khi bắn trúng đích thì dừng lại + tắt trọng lực
-            rb.velocity = Vector3.zero;
-            rb.useGravity = false;
-        }
     }
 
     public void Shoot()
     {
-        //rb.AddForce((transform.forward + transform.right + transform.up) * flyForce, ForceMode.Impulse);
-        //ChangeState(DartState.Flying);
-    
         // Góc lệch ngẫu nhiên
         float randomAngleX = UnityEngine.Random.Range(minAngleX, maxAngleX); // lệch theo ngang
         float randomAngleY = UnityEngine.Random.Range(minAngleY, maxAngleY); // lệch theo dọc
@@ -91,8 +73,6 @@ public class Dart : MonoBehaviour
         // Quay rotation của phi tiêu.
         Quaternion deviationRotation = Quaternion.Euler(randomAngleX, randomAngleY, 0);
         Vector3 shootDirection = deviationRotation * Vector3.forward;
-
-        //transform.rotation = Quaternion.Euler(randomAngleX, randomAngleY, 0);
 
         // Bắn theo hướng đã xoay
         rb.AddForce(shootDirection * flyForce, ForceMode.Impulse);
@@ -124,8 +104,16 @@ public class Dart : MonoBehaviour
                     break;
             }
         }
-
+        //Chuyển trạng thái của phi tiêu thành hit
         ChangeState(DartState.Hit);
+        Hit();
+    }
+
+    void Hit()
+    {
+        //Khi bắn trúng đích thì dừng lại + tắt trọng lực
+        rb.velocity = Vector3.zero;
+        rb.useGravity = false;
     }
 
     void ChangeState(DartState newState) 

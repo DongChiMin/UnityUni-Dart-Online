@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3102cd9d6e40e24fb009e6513c9127b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyForce: 60
+  flyForce: 61.5
   gravityForce: 60
   rotationSpeed: 50
   maxAngleX: -10
