@@ -32,4 +32,9 @@ public class LoginController : MonoBehaviour
         NetworkStream stream = ServerConnection.Instance.GetStream();
         PacketSender.SendPacket(packet, stream);
     }
+
+    public void TryAgain()
+    {
+        UIManager.Instance.ShowOnly(UIPaneltype.login);
+    }
 }

@@ -6,7 +6,9 @@ public enum UIPaneltype
     connecting,
     connectionFailed,
     register,
-    login
+    login,
+    loginFailed,
+    mainMenu
 }
 
 public class UIManager : Singleton<UIManager>
@@ -15,6 +17,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] GameObject registerPanel;
     [SerializeField] GameObject loginPanel;
     [SerializeField] GameObject connectionFailedPanel;
+    [SerializeField] GameObject mainMenuPanel;
+    [SerializeField] GameObject loginFailedPanel;
     private Dictionary<UIPaneltype, GameObject> panels = new Dictionary<UIPaneltype, GameObject>();
 
     void Awake()
@@ -23,29 +27,37 @@ public class UIManager : Singleton<UIManager>
         panels.Add(UIPaneltype.connecting, connectingPanel);
         panels.Add(UIPaneltype.register, registerPanel);
         panels.Add(UIPaneltype.login, loginPanel);
+        panels.Add(UIPaneltype.mainMenu, mainMenuPanel);
+        panels.Add(UIPaneltype.loginFailed, loginFailedPanel);
     }
 
-    public void Show(UIPaneltype panelName)
+    public void ShowOnly(UIPaneltype panelType)
     {
-        if (panels.TryGetValue(panelName, out GameObject panel))
+        HideAll();
+        Show(panelType);
+    }
+
+    public void Show(UIPaneltype panelType)
+    {
+        if (panels.TryGetValue(panelType, out GameObject panel))
         {
             panel.SetActive(true);
         }
         else
         {
-            Debug.LogWarning($"Không tìm thấy panel: {panelName}");
+            Debug.LogWarning($"Không tìm thấy panel: {panelType}");
         }
     }
 
-    public void Hide(UIPaneltype panelName)
+    public void Hide(UIPaneltype panelType)
     {
-        if (panels.TryGetValue(panelName, out GameObject panel))
+        if (panels.TryGetValue(panelType, out GameObject panel))
         {
             panel.SetActive(false);
         }
         else
         {
-            Debug.LogWarning($"Không tìm thấy panel: {panelName}");
+            Debug.LogWarning($"Không tìm thấy panel: {panelType}");
         }
     }
 

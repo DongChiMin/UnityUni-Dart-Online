@@ -33,10 +33,14 @@ public class ServerConnection : Singleton<ServerConnection>
 
     private void Update()
     {
+        //Mỗi khi nhận được message từ server -> gọi hàm
         while (messageQueue.TryDequeue(out string msg))
         {
-            Debug.Log("Server gửi: " + msg);
+            Debug.Log("Đã nhận dữ liệu" + msg);
+            MessageRouter.Instance.Route(msg);
         }
+
+        //Nếu server kết nối thành công hoặc bị dừng chạy -> hiện UI try again
         if(isConnectDone)
         {
             DoneConnect();
@@ -130,6 +134,8 @@ public class ServerConnection : Singleton<ServerConnection>
             {
                 Debug.LogError("Lỗi khi nhận dữ liệu: " + e.Message);
                 isRunning = false;
+                isConnectFailed = true;
+                isConnectDone = true;
             }
         }
     }
