@@ -16,4 +16,9 @@ public class RegisterController : MonoBehaviour
         NetworkStream stream = ServerConnection.Instance.GetStream();
         PacketSender.SendPacket(packet, stream);
     }
+
+    public void ChangeToLoginUI()
+    {
+        UIManager.Instance.ShowOnly(UIPaneltype.login);
+    }
 }

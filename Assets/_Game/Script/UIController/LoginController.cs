@@ -26,15 +26,13 @@ public class LoginController : MonoBehaviour
         PacketSender.SendPacket(login, stream);
     }
 
-    public void GetOnlineUsersExecute()
-    {
-        GetOnlineUsersPacket packet = new GetOnlineUsersPacket();
-        NetworkStream stream = ServerConnection.Instance.GetStream();
-        PacketSender.SendPacket(packet, stream);
-    }
-
     public void TryAgain()
     {
         UIManager.Instance.ShowOnly(UIPaneltype.login);
+    }
+
+    public void ChangeToRegisterUI()
+    {
+        UIManager.Instance.ShowOnly(UIPaneltype.register);
     }
 }

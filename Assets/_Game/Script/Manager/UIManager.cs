@@ -13,22 +13,22 @@ public enum UIPaneltype
 
 public class UIManager : Singleton<UIManager>
 {
-    [SerializeField] GameObject connectingPanel;
-    [SerializeField] GameObject registerPanel;
-    [SerializeField] GameObject loginPanel;
-    [SerializeField] GameObject connectionFailedPanel;
-    [SerializeField] GameObject mainMenuPanel;
-    [SerializeField] GameObject loginFailedPanel;
     private Dictionary<UIPaneltype, GameObject> panels = new Dictionary<UIPaneltype, GameObject>();
 
     void Awake()
     {
-        panels.Add(UIPaneltype.connectionFailed, connectionFailedPanel);
-        panels.Add(UIPaneltype.connecting, connectingPanel);
-        panels.Add(UIPaneltype.register, registerPanel);
-        panels.Add(UIPaneltype.login, loginPanel);
-        panels.Add(UIPaneltype.mainMenu, mainMenuPanel);
-        panels.Add(UIPaneltype.loginFailed, loginFailedPanel);
+        foreach (Transform child in transform)
+        {
+            // Giả sử mỗi panel đều có tên trùng với Enum
+            if (System.Enum.TryParse(child.name, out UIPaneltype type))
+            {
+                panels[type] = child.gameObject;
+            }
+            else
+            {
+                Debug.LogWarning($"Panel name '{child.name}' không khớp với UIPaneltype enum.");
+            }
+        }
     }
 
     public void ShowOnly(UIPaneltype panelType)
